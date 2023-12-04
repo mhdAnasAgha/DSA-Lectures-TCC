@@ -20,24 +20,83 @@ namespace Linked_List_Homework
         // methods
         public void Add(int val)
         {
-            // TODO: add item to the end of the list
-            // consider when the list is empty
-
-            // create a new node with the given data
+            Node newNode = new Node(val);
+            if (First == null)
+            {
+                First = newNode;
+            }
+            else
+            {
+                Node last = First;
+                while (last.Next != null)
+                {
+                    last = last.Next;
+                }
+                last.Next = newNode;
+            }
         }
         public void RemoveKey(int key)
         {
-            // TODO: search for the key and remove it from the list
-            // consider when the key does not exist and when the list is empty
+            if (First == null)
+            {
+                Console.WriteLine("List is empty. Cannot remove key.");
+                return;
+            }
+
+            if (First.Data == key)
+            {
+                First = First.Next;
+                return;
+            }
+
+            Node current = First;
+            Node previous = null;
+
+            while (current != null && current.Data != key)
+            {
+                previous = current;
+                current = current.Next;
+            }
+
+            if (current == null)
+            {
+                Console.WriteLine($"Key {key} not found in the list.");
+                return;
+            }
+
+            previous.Next = current.Next;
         }
         public void Merge(LinkedList other_list)
         {
-            // TODO: merge this list with the other list
+            if (other_list == null || other_list.First == null)
+            {
+                Console.WriteLine("Cannot merge with an empty list.");
+                return;
+            }
+
+            Node last = First;
+            while (last.Next != null)
+            {
+                last = last.Next;
+            }
+
+            last.Next = other_list.First;
         }
         public void Reverse()
         {
-            // TODO: revers the nodes of this list
-            // initialize three pointers: prev, curr, and next
+           Node prev = null;
+    Node current = First;
+    Node next = null;
+
+    while (current != null)
+    {
+        next = current.Next;
+        current.Next = prev;
+        prev = current;
+        current = next;
+    }
+
+    First = prev;
         }
     }
 }
